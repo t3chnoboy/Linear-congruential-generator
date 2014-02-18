@@ -19,15 +19,15 @@ main = do
       maxR   = maximum unique
       period = length unique
       points = map (\x -> fromIntegral x/ fromIntegral m) unique
-      mx     = sum points / genericLength points
-      dx     = (sum $ map (\x -> (x - mx)^2) points) / (genericLength points)
-      u      = sqrt dx
+      μ      = sum points / genericLength points
+      var    = (sum $ map (\x -> (x - μ)^2) points) / (genericLength points)
+      σ      = sqrt var
 
     print minR
     print maxR
     print period
     print $ take 5 rnd
     print $ take 5 points
-    print mx
-    print dx
-    print u
+    print μ
+    print var
+    print σ
