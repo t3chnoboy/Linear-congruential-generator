@@ -4,30 +4,30 @@ main = do
     putStrLn "r0>"
     r0String <- getLine
     putStrLn "a>"
-    aString <- getLine
+    aString  <- getLine
     putStrLn "m>"
-    mString <- getLine
+    mString  <- getLine
 
     let
-      r0     = read r0String :: Int
-      a      = read aString :: Int
-      m      = read mString :: Int
+      r0     = read r0String
+      a      = read aString
+      m      = read mString
 
       rnd    = r0 : [ (r * a) `mod` m | r <- rnd]
-      unique = nub $ take 15000 rnd
+      unique = takeWhile (/= head rnd) $ tail rnd
       minR   = minimum unique
       maxR   = maximum unique
-      period = length unique
-      points = map (\x -> fromIntegral x/ fromIntegral m) unique
+      period = length  unique
+      points = map (\x -> fromIntegral x / fromIntegral m) unique
       μ      = sum points / genericLength points
-      var    = (sum $ map (\x -> (x - μ)^2) points) / (genericLength points)
+      var    = (sum $ map ( \x -> (x - μ)^2 ) points) / (genericLength points)
       σ      = sqrt var
 
     print minR
     print maxR
     print period
-    print $ take 5 rnd
-    print $ take 5 points
+    print unique
+    print $ take 10 points
     print μ
     print var
     print σ
