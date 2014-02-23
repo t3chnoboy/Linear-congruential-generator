@@ -1,4 +1,7 @@
 import Data.List
+import Data.Fixed
+
+prettyPrint (msg, val) =  msg ++ show val
 
 main = do
     putStrLn "r0>"
@@ -13,21 +16,12 @@ main = do
       a      = read aString
       m      = read mString
 
-      rnd    = r0 : [ (r * a) `mod` m | r <- rnd]
+      rnd    = r0 : [ (r * a) `mod'` m | r <- rnd]
       unique = takeWhile (/= head rnd) $ tail rnd
-      minR   = minimum unique
-      maxR   = maximum unique
-      period = length  unique
-      points = map (\x -> fromIntegral x / fromIntegral m) unique
-      μ      = sum points / genericLength points
-      var    = (sum $ map ( \x -> (x - μ)^2 ) points) / (genericLength points)
+      t      = length  unique
+      points = map (/m) unique
+      µ      = sum points / genericLength points
+      var    = (sum $ map ( \x -> (x - µ)^2 ) points) / (genericLength points)
       σ      = sqrt var
 
-    print minR
-    print maxR
-    print period
-    print unique
-    print $ take 10 points
-    print μ
-    print var
-    print σ
+    putStrLn . unlines. map prettyPrint $ [("T = ", fromIntegral t), ("µ = ", µ), ("σ = ", σ)]
