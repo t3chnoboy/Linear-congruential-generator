@@ -3,19 +3,16 @@ import Data.Fixed
 
 prettyPrint (msg, val) =  msg ++ show val
 
+promptInt msg = do
+    putStrLn msg
+    inp <- getLine
+    return (read inp)
+
 main = do
-    putStrLn "r0>"
-    r0String <- getLine
-    putStrLn "a>"
-    aString  <- getLine
-    putStrLn "m>"
-    mString  <- getLine
-
+    a <- promptInt "a>"
+    r0 <- promptInt "r0"
+    m <- promptInt "m"
     let
-      r0     = read r0String
-      a      = read aString
-      m      = read mString
-
       rnd    = r0 : [ (r * a) `mod'` m | r <- rnd]
       unique = takeWhile (/= head rnd) $ tail rnd
       t      = length  unique
