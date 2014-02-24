@@ -3,9 +3,9 @@ import Data.Fixed
 import IOUtils
 import ASCIIHist
 
-main = do a <- promptInt "a>"
+main = do a  <- promptInt "a>"
           r0 <- promptInt "r0"
-          m <- promptInt "m"
+          m  <- promptInt "m"
           let
             rnd    = r0 : [ (r * a) `mod'` m | r <- rnd]
             rnd'   = tail rnd
