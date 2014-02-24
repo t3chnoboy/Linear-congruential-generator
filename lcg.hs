@@ -1,14 +1,15 @@
 import Data.List
 import Data.Fixed
 import IOUtils
-import Graphics.Histogram
+import ASCIIHist
 
 main = do a <- promptInt "a>"
           r0 <- promptInt "r0"
           m <- promptInt "m"
           let
             rnd    = r0 : [ (r * a) `mod'` m | r <- rnd]
-            unique = takeWhile (/= head rnd) $ tail rnd
+            rnd'   = tail rnd
+            unique = takeWhile (/= head rnd') $ tail rnd'
             t      = length  unique
             points = map (/m) unique
             µ      = sum points / genericLength points
@@ -16,4 +17,4 @@ main = do a <- promptInt "a>"
             σ      = sqrt var
 
           putStrLn . unlines. map prettyPrint $ [("T = ", fromIntegral t), ("µ = ", µ), ("σ = ", σ)]
-          plot [] $ histogram binSturges points
+          putStr . unlines $ histogram points 20
