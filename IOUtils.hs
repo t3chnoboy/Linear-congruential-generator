@@ -1,6 +1,6 @@
 module IOUtils where
 
-prettyPrint (msg, val) =  msg ++ show val
+print' (msg, val) =  msg ++ show val
 
 prompt msg = do
     putStrLn msg
